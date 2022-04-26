@@ -41,7 +41,7 @@ Primary Key(movieID ));
 
 CREATE Table Show(				
 showID varchar(10),
-showTime int  NOT NULL,
+showTime varchar(20)  NOT NULL,
 showDate date NOT NULL,				
 seatsRemainingGold int NOT NULL CHECK (seatsRemainingGold  >= 0),
 seatsRemainingSilver int NOT NULL CHECK (seatsRemainingSilver >= 0),
