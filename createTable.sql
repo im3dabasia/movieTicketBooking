@@ -39,7 +39,7 @@ targetAudience varchar(5),
 Primary Key(movieID ));
 
 
-CREATE Table Show(				
+CREATE Table Shows(				
 showID varchar(10),
 showTime varchar(20)  NOT NULL,
 showDate date NOT NULL,				
@@ -64,7 +64,7 @@ cardName varchar(21),
 userID varchar(5),
 showID varchar(10),
 Foreign Key (userID ) REFERENCES webUser (webUserID),
-Foreign Key (showID ) REFERENCES Show(showID),
+Foreign Key (showID ) REFERENCES Shows(showID),
 Primary Key(bookingID ));
 
 CREATE Table Ticket(
