@@ -63,9 +63,15 @@ cardNumber varchar(19),
 cardName varchar(21),
 userID varchar(5),
 showID varchar(10),
-Foreign Key (userID ) REFERENCES webUser (webUserID),
-Foreign Key (showID ) REFERENCES Shows(showID),
-Primary Key(bookingID ));
+theatreID varchar(5),
+movieID varchar(5),
+screenID varchar(5),
+Foreign Key (userID) REFERENCES webUser (webUserID),
+Foreign Key (showID) REFERENCES Shows(showID),
+Foreign Key (theatreID) REFERENCES Theatre (theatreID),
+Foreign Key (movieID) REFERENCES Movie(movieID),
+Foreign Key (screenID) REFERENCES Screen (screenID),
+Primary Key(bookingID));
 
 CREATE Table Ticket(
 ticketID varchar(20),
@@ -75,18 +81,6 @@ price int NOT NULL,
 Primary Key(ticketID ),
 Foreign Key(bookingID ) REFERENCES Booking(bookingID ));
 
-
-
-//Edits
-ALTER TABLE Booking ADD theatreID varchar(5);
-ALTER TABLE Booking ADD CONSTRAINT FK_BOOKING1 FOREIGN KEY (theatreID) REFERENCES Theatre(theatreID);
-
-
-ALTER TABLE Booking ADD movieID varchar(5);
-ALTER TABLE Booking ADD CONSTRAINT FK_BOOKING2 FOREIGN KEY (movieID) REFERENCES Movie(movieID);
-
-ALTER TABLE Booking ADD screenID varchar(5);
-ALTER TABLE Booking ADD CONSTRAINT FK_BOOKING3 FOREIGN KEY (screenID) REFERENCES Screen(screenID);
 
 
 ALTER TABLE Booking MODIFY theatreID varchar(5) NOT NULL;
