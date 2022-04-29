@@ -4,7 +4,7 @@ GRANT ALL PRIVILEGES TO C##MOVIES;
 
 
 CREATE Table webUser(
-webUserID varchar(5),
+webUserID varchar(10),
 fName varchar(15), 
 lName varchar(20),
 emailID varchar(30),
@@ -54,19 +54,18 @@ Foreign Key (screenID ) REFERENCES Screen(screenID ) ,
 Foreign Key (movieID ) REFERENCES Movie(movieID) );
 
 
-
 CREATE Table Booking(
 bookingID varchar(10),
 noOFTickets int NOT NULL,
 totalCost int NOT NULL,                                           
 cardNumber varchar(19),
 cardName varchar(21),
-userID varchar(5),
-showID varchar(10),
-theatreID varchar(5),
-movieID varchar(5),
-screenID varchar(5),
-Foreign Key (userID) REFERENCES webUser (webUserID),
+webUserID VARCHAR2(10),
+showID VARCHAR2(10),
+theatreID VARCHAR2(5),
+movieID VARCHAR2(5),
+screenID VARCHAR2(5),
+Foreign Key (webUserID) REFERENCES webUser(webUserID),
 Foreign Key (showID) REFERENCES Shows(showID),
 Foreign Key (theatreID) REFERENCES Theatre (theatreID),
 Foreign Key (movieID) REFERENCES Movie(movieID),
@@ -83,6 +82,7 @@ Foreign Key(bookingID ) REFERENCES Booking(bookingID ));
 
 
 
+//additional 
 ALTER TABLE Booking MODIFY theatreID varchar(5) NOT NULL;
 ALTER TABLE Booking MODIFY movieID varchar(5) NOT NULL;
 ALTER TABLE Booking MODIFY screenID varchar(5) NOT NULL;
