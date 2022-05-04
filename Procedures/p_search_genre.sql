@@ -9,3 +9,6 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE ('Movie Name: ' || rec.name);
   END LOOP;
 END;
+/
+
+

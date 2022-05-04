@@ -1,0 +1,61 @@
+create or replace trigger seats_reduce
+before insert on ticket
+for each row
+begin
+  seats_booked();
+end;
+/
+
+
+CREATE OR REPLACE FUNCTION Seats_Booked() RETURNS TRIGGER
+ 
+S_ID varchar(10);
+Booked_Class varchar(3);
+Gold number;
+Silver number;
+
+BEGIN
+	Select showID into S_ID from Booking Where bookingID  =  :New.bookingID;
+	Select seatsRemainingGold into Gold from Shows where showID LIKE S_ID;
+	Select seatsRemainingSilver into Silver from Show where showID LIKE S_ID;
+	IF :New.class LIKE 'GLD' THEN
+		IF Gold = 0 THEN
+			dbms_output.put_line('No More GOLD Seats Available. Try a different Class');
+			Return NULL;
+		ELSE
+			UPDATE Shows SET seatsRemainingGold = seatsRemainingGold - 1 Where showID LIKE S_ID;
+			Return New;
+		END IF;
+	ELSE
+		IF Silver = 0 THEN
+			dbms_output.put_line('No More SILVER Seats Available. Try a different Class');
+			Return NULL;
+		ELSE
+			UPDATE Shows SET seatsRemainingSilver = seatsRemainingSilver - 1 Where showID LIKE S_ID;
+			Return New;
+		END IF; 
+	END IF;
+END;
+/
+
+
+
+
+
+CREATE or replace procedure Seats_Booked1(bookingid varchar) as
+ 
+S_ID varchar(10);
+Gold int;
+Silver int;
+
+
+BEGIN
+	Select showID into S_ID from Booking Where bookingID  = New.bookingID ;
+	Select seatsRemainingGold into Gold from Shows where showID LIKE S_ID;
+	Select seatsRemainingSilver into Silver from Shows where showID LIKE S_ID;
+
+	dbms_ouput.put_line(S_ID || Gold || Silver);
+
+
+END;
+/
