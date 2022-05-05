@@ -1,42 +1,32 @@
-create or replace type object_detail2 as object
-	( o_cardName varchar2(21),
-	o_fName varchar2(15),
-	o_lName varchar2(20),
-	o_cardNumber varchar2(20),
-	o_webUserID varchar2(5),
-	o_phoneNumber varchar2(10),
-	o_emailID varchar2(30)
+create or replace type object_payment as object
+	( o_cardname varchar2(21),
+	o_cardnumber varchar2(19)
+
 );
 /
 
-create or replace type type_detail2 is table of object_detail2;
+create or replace type type_payment is table of object_payment;
 /
 
-create or replace function details_payment(bookid varchar)
-return type_detail2
+create or replace function details_payment(bookID varchar)
+return type_payment
 is
-	p_cardName varchar2(21);
-	p_fName varchar2(15);
-	p_lName varchar2(20);
+	p_cardname  varchar2(21);
 	p_cardNumber varchar2(19);
-	p_webUserID varchar2(10);
-	p_phoneNumber varchar2(10);
-	p_emailID varchar2(30);
 
-	detail9 type_detail2 := type_detail2();
+	detail55 type_payment := type_payment();
 begin
-	detail9.extend();
+	detail55.extend();
 	
-	select webUser.fName, webUser.lName , webUser.webUserID, webUser.phoneNumber, webUser.emailID, Booking.cardNumber, Booking.cardName 
-	into p_fName, p_lName, p_webUserID, p_phoneNumber, p_emailID, p_cardNumber, p_cardName
-	from Booking,webUser
-	where Booking.webUserID  = webUser.webUserID AND Booking.webUserID = bookid;
+	select Booking.cardname, Booking.cardNumber 
+	into  p_cardName, p_cardNumber
+	from  Booking
+	where  Booking.bookingID = bookID;
 
-	detail9(1)  := object_detail2(p_cardName, p_fName, p_lName, p_cardNumber, p_webUserID, p_phoneNumber, p_emailID );
+	detail55(1)  := object_payment( p_cardname, p_cardNumber  );
 	
-
-	return detail9;
+	return detail55;
 end;
 /
 
-select details_payment( webUserID ) from booking where ;
+select   details_payment( BookingID ) from Booking  ; 
