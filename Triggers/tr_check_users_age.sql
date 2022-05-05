@@ -1,5 +1,5 @@
 Create or replace trigger check_users_age
-after insert on webUser
+before insert on webUser
 for each row
 enable
 declare
