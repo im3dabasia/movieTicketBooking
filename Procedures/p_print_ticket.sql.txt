@@ -8,7 +8,7 @@ create or replace procedure print_ticket(bookid varchar) is
 	cursor cur3 is select Screen.screenID, Screen.theaterID from Screen,Booking where Screen.screenID = Booking.screenID and  Booking.BookingID = bookid;
 	vcur3 cur3%rowtype;
 
-	cursor cur4 is select totalcost 	 booking where Booking.BookingID = bookid;	
+	cursor cur4 is select totalcost from booking where Booking.BookingID = bookid;	
 begin
 for vcur  in cur loop
 	dbms_output.put_line(vcur.webUserID || vcur.fName || vcur.lName || vcur.webUserID);
