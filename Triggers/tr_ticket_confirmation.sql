@@ -7,6 +7,7 @@ end;
 /
 
 
-
 --INSERT INTO ticket(ticketID , bookingID , class , price )
 --VALUES('S0054SHT0110230', null, 'SLV',  350);
+
+
