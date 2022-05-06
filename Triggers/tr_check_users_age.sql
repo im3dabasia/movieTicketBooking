@@ -1,13 +1,10 @@
-Create or replace trigger check_users_age
-before insert on webUser
-for each row
-enable
+CREATE OR REPLACE TRIGGER checkUserAge BEFORE INSERT ON webUser
+FOR EACH ROW
 declare
-user_age int;
-begin
-select age into user_age from webUser;
-if (user_age<18) then
-dbms_output.put_line('Under age');
-end if;
-end;
+		new_age int:=  (select age from webUser  where webUserID = :new.webUserID);
+begin   
+    IF (new_age < 18) THEN
+	raise_application_error(-20001,'Age should be greater than 18');
+    END IF;
+END;
 /
